@@ -3,15 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>로그인</title>
+        <title>회원가입</title>
     </head>
     <body>
         <div>
             <form method="POST">
                 <h1>Seoul Tour</h1>
                 <hr>
-                {% csrf_token %} {{ form.as_p }}
-                <button type="submit">로그인</button>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">회원가입</button>
+                <a href="/user/login/">로그인 페이지로 이동</a>
             </form>
         </div>        
     </body>

@@ -25,4 +25,5 @@ urlpatterns = [
     path("post/", include("posts.urls")),
     path("user/", include("users.urls")),
     path("places/", include("seoul.urls")),
+    path("login/", include ("users.urls")),
 ]

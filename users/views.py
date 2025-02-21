@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from users.forms import LoginForm
+from users.forms import LoginForm, SignupForm
 from django.contrib.auth import authenticate, login, logout
+from users.models import User
 
 # Create your views here.
 def profile(request):
@@ -48,5 +49,31 @@ def login_view(request):
             "form" : form
         }
 
-        return render(request, "login.html", context)        
+        return render(request, "login.html", context)
+
+def logout_view(request):
+    # logout 함수 호출에 request를 전달
+    logout(request)
+
+    # logout 처리한 후 로드인 페이지로 이동
+    return redirect("login/")         
+
+def signup(request):
+    if request.method == "POST":
+        form = SignupForm(data = request.POST, files = request.FILES)
+
+        # Form에 에러가 없다면 form의 save() 메서드로 사용자를 생성
+        if form.is_valid():
+
+            user = form.save()
+            login(request, user)
+            return redirect("/post/")
+
+    # GET 요청에서는 빈 form을 보여줌
+    else:
+        # SignupForm 인스턴스를 생성, Template에 전달
+        form = SignupForm()
+        context = {"form":form}
+        return render(request, "signup.html", context)        
+
     
