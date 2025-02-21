@@ -1,12 +1,18 @@
 from django.db import models
 
-# Create your models here.
+
 class Post(models.Model):
     user = models.ForeignKey("users.User",
                              verbose_name = "작성자",
-                             on_delete = models.CASCADE)
-    content = models.TextField("내용", blank = True)
+                             on_delete = models.CASCADE)#유저 외래키
+    title = models.CharField("제목", max_length= 30)
+    complete = models.BooleanField("완료 여부", default=False)
+    content = models.TextField("내용")
     created = models.DateTimeField("작성일시", auto_now_add = True)
+    updated = models.DateTimeField("수정일시", auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 class PostImage(models.Model):
     post = models.ForeignKey(Post,
